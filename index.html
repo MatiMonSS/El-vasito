@@ -28,8 +28,8 @@
 
     .canvas-container {
       position: relative;
-      width: 160px;
-      height: 210px;
+      width: 220px;
+      height: 280px;
       margin-bottom: 15px;
     }
     canvas {
@@ -72,7 +72,7 @@
 <body>
 
   <div class="canvas-container">
-    <canvas id="glassCanvas" width="160" height="210"></canvas>
+    <canvas id="glassCanvas" width="220" height="280"></canvas>
   </div>
 
   <div class="countdown-grid">
@@ -106,39 +106,39 @@
     function drawGlass(prog) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Fondo oscuro para que resalte en el flotante
+      // Fondo oscuro
       ctx.fillStyle = "#181824";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Título en el flotante
+      // Título con margen superior (para evitar cortes de interfaz flotante)
       ctx.fillStyle = "#ffffff";
-      ctx.font = "bold 13px sans-serif";
+      ctx.font = "bold 14px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("🇨🇱 CAMINO AL 18 🇨🇱", 80, 18);
+      ctx.fillText("🇨🇱 CAMINO AL 18 🇨🇱", 110, 35);
 
-      // Vaso (Contorno más pequeño)
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.6)";
+      // Vaso posicionado en la zona media
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
       ctx.lineWidth = 3;
       ctx.beginPath();
-      ctx.moveTo(30, 32);
-      ctx.lineTo(42, 190);
-      ctx.lineTo(118, 190);
-      ctx.lineTo(130, 32);
+      ctx.moveTo(60, 55);
+      ctx.lineTo(72, 210);
+      ctx.lineTo(148, 210);
+      ctx.lineTo(160, 55);
       ctx.stroke();
 
       // Base del vaso
-      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-      ctx.fillRect(38, 190, 84, 8);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.fillRect(68, 210, 84, 8);
 
       // Líquido
       if (prog > 0) {
-        const fillHeight = (152 * prog) / 100;
-        const topY = 186 - fillHeight;
+        const fillHeight = (150 * prog) / 100;
+        const topY = 206 - fillHeight;
 
-        const leftX = 42 - ((42 - 30) * (fillHeight / 152));
-        const rightX = 118 + ((130 - 118) * (fillHeight / 152));
+        const leftX = 72 - ((72 - 60) * (fillHeight / 150));
+        const rightX = 148 + ((160 - 148) * (fillHeight / 150));
 
-        const gradient = ctx.createLinearGradient(0, topY, 0, 186);
+        const gradient = ctx.createLinearGradient(0, topY, 0, 206);
         gradient.addColorStop(0, "#ff7e5f");
         gradient.addColorStop(1, "#feb47b");
 
@@ -146,8 +146,8 @@
         ctx.beginPath();
         ctx.moveTo(leftX, topY);
         ctx.lineTo(rightX, topY);
-        ctx.lineTo(118, 186);
-        ctx.lineTo(42, 186);
+        ctx.lineTo(148, 206);
+        ctx.lineTo(72, 206);
         ctx.closePath();
         ctx.fill();
 
@@ -158,13 +158,13 @@
         ctx.fill();
       }
 
-      // Porcentaje
+      // Porcentaje dentro del vaso
       ctx.fillStyle = "#ffffff";
       ctx.font = "bold 22px sans-serif";
       ctx.textAlign = "center";
       ctx.shadowColor = "black";
-      ctx.shadowBlur = 4;
-      ctx.fillText(`${Math.floor(prog)}%`, 80, 115);
+      ctx.shadowBlur = 5;
+      ctx.fillText(`${Math.floor(prog)}%`, 110, 140);
       ctx.shadowBlur = 0;
     }
 
